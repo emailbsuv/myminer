@@ -99,12 +99,15 @@ unsigned char stackw_tmp[20][8];
 
 void initrandbytes(){
 	int h=0;
-	while(h==0){
+	
+	while(h==0)
+	{
 		for(int z1=0;z1<51;z1++){for(int z=0;z<256;z++){randbytes[z]^=((rand()<<1) % 256)&255;}}
 		for(int z1=0;z1<5;z1++)for(int z=0;z<256;z++)randbytes[z]^=(randbytes[(z+1)%256]>>1)&255;
 		for(int z=0;z<256;z++)if (randbytes[z]>127)h=1;
 	}
 	randptr=0;
+	
 }
 int getrandbyte(){
 	int h=randbytes[randptr];
@@ -173,7 +176,7 @@ void savesetup(){
 bool loadsetup(){
   FILE *read_ptr;
   read_ptr = fopen("Вибачення.400GB","rb");
-  if(read_ptr==false)return false;
+  if(!read_ptr)return false;
   tmpptr =0;
   for(int i=0;i<20;i++){
 	fread(tmp[tmpptr],8,1,read_ptr); 
@@ -255,36 +258,7 @@ void pushstackw(){
 	stackw_cryptsaltdelta[15][0]=curwdelta;
 	stackw_cryptsaltdelta[15][1]=curwbit;
 }
-// DWORD WINAPI myThread(LPVOID lpParameter)
-// {
-	// unsigned int& myCounter = *((unsigned int*)lpParameter);
-	// while(myCounter < 0xFFFFFFFF) ++myCounter;
-	// myCounter=0;
-	// while(myCounter < 0xFFFFFFFF) myCounter++;
-	
-	// return 0;
-// }
 int main(int argc, char *argv[]){
-	// using namespace std;
-	// unsigned int myCounter = 0;
-	// DWORD myThreadID;
-	// HANDLE myHandle = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
-	// HANDLE myHandle1 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
-	// HANDLE myHandle2 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
-	// HANDLE myHandle3 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
-	// char myChar = ' ';
-	// while(myChar != 'q') {
-		// cout << myCounter << endl;
-		// myChar = getchar();
-	// }
-	// CloseHandle(myHandle);
-	// return 0;	
-// SYSTEM_INFO sysinfo;
-// GetSystemInfo( &sysinfo );
-
-// printf( intToStr(sysinfo.dwNumberOfProcessors) );
-// return 0;		
-	
 	
 	//int bitsforwrite = 0b0101010101010101;
 	int bitsforwrite = 0b1111111111111111;
@@ -301,7 +275,7 @@ int main(int argc, char *argv[]){
 			else
 			{
 				  read_ptr = fopen(argv[2],"rb");
-				  if(read_ptr==false){printf("Need file or folder to teleportate");return 0;}
+				  if(!read_ptr){printf("Need file or folder to teleportate");return 0;}
 				  fread(queuedata,78,1,read_ptr);fclose(read_ptr);
 			}
 	}
@@ -315,10 +289,12 @@ int main(int argc, char *argv[]){
 		initrtmp();
 		loaderror = false;
 			
-		while(checkerrorsinit()){ lstrcat(stm1,"Error !\r\n"); cryptsalt();initrtmp();m1++;}	
+		while(checkerrorsinit())
+		{ lstrcat(stm1,"Error !\r\n"); cryptsalt();initrtmp();m1++;}	
 		
 		int tmp4[32],tmp4ptr;
 		for(int i=0;i<16;i++){
+			
 			curwbit = (int)(bitsforwrite&1)==1?1:0;
 			//lstrcat(stm1,intToStr(curwbit)); 
 			bitsforwrite >>=1;
@@ -373,6 +349,7 @@ int main(int argc, char *argv[]){
 			
 			errorsintest1=0;
 			for(int i9=0;i9<16384;i9++){
+				
 				for(int z2=31;z2>=0;z2--){tmp4[z2]^=tmp4[(z2+1)%32];}
 				tmp4ptr=0;
 				for(int i2=16;i2<20;i2+=2){
@@ -412,7 +389,8 @@ int main(int argc, char *argv[]){
     lstrcat(stm1,"\r\n= ");
 	lstrcat(stm1,intToStr(errorsintest1)); 
 			
-			while(checkerrorsinit()){ cryptsalt();
+			while(checkerrorsinit())
+			{ cryptsalt();
 				for(int i7=0;i7<20;i7++){
 					for(int z=0;z<8;z++)rtmp[z]=tmp[i7][z];
 					tmpptr=i7;
