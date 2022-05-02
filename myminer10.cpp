@@ -231,16 +231,16 @@ int main(int argc, char *argv[]){
 		initrandbytes();
 		int i9,y2=0;
 		long long imax2=0;
-		for(int i0=0;i0<300;i0++){
+		for(int i0=0;i0<6000;i0++){
 			long long imax=1;
-			for(i9=0;i9<7;i9++){
+			for(i9=0;i9<27;i9++){
 				for(int z=0;z<8;z++){rtmp[z]=getrandbyte();}
 				xorroots();
 				findroots();
 				imax*=roots0[0];
 				if((roots0[0]==0)){break;}
 			}
-			if(i9==7){
+			if(i9==27){
 				y2++;
 				if(imax2<imax)imax2=imax;
 			}
